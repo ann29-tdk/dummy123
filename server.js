@@ -8,16 +8,13 @@ const transactionRoute = require('./routes/transactionsRoute');
 app.use('/api/users/', userRoute);
 app.use('/api/transactions/', transactionRoute);
 
-const port =process.env.PORT || 8000;
+
 
 app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (_, res) {
-  res.sendFile(
-    path.join(__dirname, "./client/build/index.html"),
-    function (err) {
-      res.status(500).send(err);
-    }
-  );
+app.get("*", (req, res) => {
+  res.sendFile( path.join(__dirname, "./client/build/index.html"));
 });
+
+const port =process.env.PORT || 8000;
 
 app.listen(port, () => console.log(`App listening on port ${port}.`));
